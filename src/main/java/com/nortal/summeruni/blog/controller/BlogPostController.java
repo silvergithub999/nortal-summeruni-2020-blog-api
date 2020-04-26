@@ -1,13 +1,10 @@
-package com.nortal.summeruni.assignment.controller;
+package com.nortal.summeruni.blog.controller;
 
-import com.nortal.summeruni.assignment.entity.BlogPost;
-import com.nortal.summeruni.assignment.entity.BlogUser;
-import com.nortal.summeruni.assignment.service.BlogPostService;
+import com.nortal.summeruni.blog.entity.BlogPost;
+import com.nortal.summeruni.blog.service.BlogPostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController

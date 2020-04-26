@@ -1,6 +1,6 @@
-package com.nortal.summeruni.assignment.security;
+package com.nortal.summeruni.blog.security;
 
-import com.nortal.summeruni.assignment.service.BlogUserService;
+import com.nortal.summeruni.blog.service.BlogUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
@@ -28,9 +27,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private final BlogUserService blogUserService;
 
-    @Autowired
-    private final BlogUserSecurity blogUserSecurity;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO: return message instead of login form
@@ -40,10 +36,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()// To access h2 console
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api", "/api/**").authenticated()
-                .antMatchers(HttpMethod.POST, "/api/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
-                .antMatchers(HttpMethod.PUT, "/api/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
-                .antMatchers(HttpMethod.DELETE, "/api/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
+                .antMatchers(HttpMethod.GET, "/blog", "/blog/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
+                .antMatchers(HttpMethod.PUT, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
+                .antMatchers(HttpMethod.DELETE, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
                 .and()
                 .formLogin()
                     .loginProcessingUrl("/auth/login")

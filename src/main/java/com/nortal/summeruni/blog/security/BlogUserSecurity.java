@@ -1,7 +1,7 @@
-package com.nortal.summeruni.assignment.security;
+package com.nortal.summeruni.blog.security;
 
-import com.nortal.summeruni.assignment.entity.BlogPost;
-import com.nortal.summeruni.assignment.service.BlogPostService;
+import com.nortal.summeruni.blog.entity.BlogPost;
+import com.nortal.summeruni.blog.service.BlogPostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

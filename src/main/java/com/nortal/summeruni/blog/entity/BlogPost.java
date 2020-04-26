@@ -1,4 +1,4 @@
-package com.nortal.summeruni.assignment.entity;
+package com.nortal.summeruni.blog.entity;
 
 import lombok.Data;
 

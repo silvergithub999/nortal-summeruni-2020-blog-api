@@ -1,6 +1,5 @@
-package com.nortal.summeruni.assignment.entity;
+package com.nortal.summeruni.blog.entity;
 
-import com.nortal.summeruni.assignment.security.BlogUserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

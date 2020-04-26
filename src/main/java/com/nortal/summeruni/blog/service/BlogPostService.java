@@ -1,8 +1,7 @@
-package com.nortal.summeruni.assignment.service;
+package com.nortal.summeruni.blog.service;
 
-import com.nortal.summeruni.assignment.entity.BlogPost;
-import com.nortal.summeruni.assignment.entity.BlogUser;
-import com.nortal.summeruni.assignment.repository.BlogPostRepository;
+import com.nortal.summeruni.blog.entity.BlogPost;
+import com.nortal.summeruni.blog.repository.BlogPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

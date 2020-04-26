@@ -1,4 +1,4 @@
-package com.nortal.summeruni.assignment;
+package com.nortal.summeruni.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

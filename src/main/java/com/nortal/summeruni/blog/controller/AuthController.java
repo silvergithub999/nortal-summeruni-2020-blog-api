@@ -1,12 +1,10 @@
-package com.nortal.summeruni.assignment.controller;
+package com.nortal.summeruni.blog.controller;
 
-import com.nortal.summeruni.assignment.entity.BlogUserDto;
-import com.nortal.summeruni.assignment.exeption.UsernameTakenException;
-import com.nortal.summeruni.assignment.service.BlogUserService;
+import com.nortal.summeruni.blog.entity.BlogUserDto;
+import com.nortal.summeruni.blog.exeption.UsernameTakenException;
+import com.nortal.summeruni.blog.service.BlogUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/auth")

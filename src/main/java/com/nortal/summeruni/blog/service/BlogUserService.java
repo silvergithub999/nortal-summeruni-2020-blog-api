@@ -1,10 +1,10 @@
-package com.nortal.summeruni.assignment.service;
+package com.nortal.summeruni.blog.service;
 
-import com.nortal.summeruni.assignment.entity.BlogUser;
-import com.nortal.summeruni.assignment.entity.BlogUserDto;
-import com.nortal.summeruni.assignment.exeption.UsernameTakenException;
-import com.nortal.summeruni.assignment.repository.BlogUserRepository;
-import com.nortal.summeruni.assignment.security.BlogUserRole;
+import com.nortal.summeruni.blog.entity.BlogUser;
+import com.nortal.summeruni.blog.entity.BlogUserDto;
+import com.nortal.summeruni.blog.exeption.UsernameTakenException;
+import com.nortal.summeruni.blog.repository.BlogUserRepository;
+import com.nortal.summeruni.blog.security.BlogUserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

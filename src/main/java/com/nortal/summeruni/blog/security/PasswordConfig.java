@@ -1,4 +1,4 @@
-package com.nortal.summeruni.assignment.security;
+package com.nortal.summeruni.blog.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

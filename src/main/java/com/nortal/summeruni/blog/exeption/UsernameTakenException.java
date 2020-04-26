@@ -1,4 +1,4 @@
-package com.nortal.summeruni.assignment.exeption;
+package com.nortal.summeruni.blog.exeption;
 
 import org.springframework.security.core.AuthenticationException;
 
