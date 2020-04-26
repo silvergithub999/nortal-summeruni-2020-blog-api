@@ -1,5 +1,6 @@
 package com.nortal.summeruni.blog.security;
 
+import com.nortal.summeruni.blog.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import com.nortal.summeruni.blog.service.BlogUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 
 @Configuration
@@ -35,26 +34,17 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .headers().frameOptions().disable()// To access h2 console
                 .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
                 .authorizeRequests()
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/login", "/logout", "/register").permitAll()
                 .antMatchers(HttpMethod.GET, "/blog", "/blog/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
                 .antMatchers(HttpMethod.PUT, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
-                .antMatchers(HttpMethod.DELETE, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
-                .and()
-                .formLogin()
-                    .loginProcessingUrl("/auth/login")
-                    .permitAll()
-                    .successHandler((request, response, authentication) -> response.setStatus(SC_OK))
-                    .failureHandler((req, resp, ex) -> resp.sendError(SC_FORBIDDEN))
-                .and()
-                    .rememberMe()
-                .and()
-                .logout()
-                    .logoutUrl("/auth/logout")
-                    .logoutSuccessHandler((request, response, authentication) -> response.setStatus(SC_OK))
-                    .clearAuthentication(true)
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID", "remember-me");
+                .antMatchers(HttpMethod.DELETE, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)");
     }
 
     @Override
