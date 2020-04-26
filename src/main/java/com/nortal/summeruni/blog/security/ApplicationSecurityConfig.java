@@ -1,9 +1,11 @@
 package com.nortal.summeruni.blog.security;
 
+import com.nortal.summeruni.blog.jwt.JwtTokenVerifier;
 import com.nortal.summeruni.blog.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import com.nortal.summeruni.blog.service.BlogUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.crypto.SecretKey;
 
 
 @Configuration
@@ -28,8 +32,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // TODO: return message instead of login form
-        // TODO:
         http
                 .csrf().disable()
                 .headers().frameOptions().disable()// To access h2 console
@@ -37,10 +39,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new JwtTokenVerifier(), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login", "/logout", "/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
                 .antMatchers(HttpMethod.GET, "/blog", "/blog/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
                 .antMatchers(HttpMethod.PUT, "/blog/{blogPostId}").access("@blogUserSecurity.isCreatedByUser(authentication,#blogPostId)")
