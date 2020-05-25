@@ -7,13 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class AuthController {
 
     private final BlogUserService blogUserService;
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public Long register(@RequestBody BlogUserDto blogUserDto) throws UsernameTakenException {
         return blogUserService.registerUser(blogUserDto);
     }
